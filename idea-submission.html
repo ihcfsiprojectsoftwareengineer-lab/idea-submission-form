@@ -1,0 +1,2545 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+
+  <title>Idea Submission Form</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="api_client.js" defer></script>
+  <script src="mapper.js" defer></script>
+  <meta name="description"
+    content="Sustainability Hackathon 2026 organized by IIT Bombay-Honeywell Centre of Excellence for Future Skills & Innovation." />
+  <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Sustainability Hackathon 2026 | IHCFSI",
+        "url": "https://events-ihcfsi.org/"
+      }
+    </script>
+
+  <link rel="icon" type="image/png" href="asset/favicon/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="asset/favicon/favicon.svg" />
+  <link rel="shortcut icon" href="asset/favicon/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="asset/favicon/apple-touch-icon.png" />
+  <link rel="manifest" href="asset/favicon/site.webmanifest" />
+
+
+
+
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", Arial, sans-serif;
+    }
+
+    body {
+      background: #f4f8f6;
+      color: #12332a;
+      padding: 40px 20px;
+    }
+
+    .form-container {
+      max-width: 1150px;
+      margin: auto;
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 18px 45px rgba(15, 70, 50, 0.12);
+    }
+
+    .form-header {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .form-header h1 {
+      color: #0f6b4a;
+      font-size: 34px;
+      margin-bottom: 8px;
+    }
+
+    .form-header p {
+      color: #66736f;
+      font-size: 16px;
+    }
+
+    .section {
+      margin-bottom: 35px;
+      padding: 28px;
+      border: 1px solid #dce9e4;
+      border-radius: 16px;
+      background: #fbfdfc;
+    }
+
+    .section h2 {
+      font-size: 22px;
+      color: #083d2e;
+      margin-bottom: 22px;
+      border-left: 5px solid #0f6b4a;
+      padding-left: 12px;
+    }
+
+    .sub-heading {
+      font-size: 17px;
+      color: #0f6b4a;
+      margin: 28px 0 18px;
+      font-weight: 700;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group.full {
+      grid-column: span 2;
+    }
+
+    label {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #263f37;
+      line-height: 1.45;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 13px 14px;
+      border: 1px solid #d3e1dc;
+      border-radius: 10px;
+      font-size: 15px;
+      background: #ffffff;
+      outline: none;
+    }
+
+    textarea {
+      min-height: 110px;
+      resize: vertical;
+      line-height: 1.6;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: #0f6b4a;
+      box-shadow: 0 0 0 4px rgba(15, 107, 74, 0.12);
+    }
+
+    .note {
+      font-size: 13px;
+      color: #66736f;
+      margin-top: 6px;
+    }
+
+    .question-number {
+      color: #0f6b4a;
+      font-weight: 800;
+    }
+
+    .submit-area {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .submit-btn {
+      background: #0f6b4a;
+      color: white;
+      border: none;
+      padding: 15px 42px;
+      font-size: 17px;
+      font-weight: 700;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: 0.25s;
+    }
+
+    .submit-btn:hover {
+      background: #084c35;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 22px rgba(15, 107, 74, 0.25);
+    }
+
+    .alert {
+      display: none;
+      margin-bottom: 22px;
+      padding: 14px 18px;
+      border-radius: 12px;
+      font-weight: 600;
+    }
+
+    .alert.success {
+      display: block;
+      background: #e8f7ef;
+      color: #0f6b4a;
+      border: 1px solid #b7e3ca;
+    }
+
+    .alert.error {
+      display: block;
+      background: #fff0f0;
+      color: #a82424;
+      border: 1px solid #f0b6b6;
+    }
+
+    .word-count {
+      font-size: 12px;
+      color: #66736f;
+      margin-top: 5px;
+      text-align: right;
+    }
+
+    .terms-box {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      margin-top: 10px;
+      font-size: 14px;
+      color: #263f37;
+    }
+
+    .terms-box input {
+      width: auto;
+      margin-top: 3px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+
+
+    .stepper {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 10px;
+      margin: 0 0 30px;
+    }
+
+    .step-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 10px;
+      border-radius: 14px;
+      background: #eef6f2;
+      color: #58716a;
+      font-size: 13px;
+      font-weight: 700;
+      border: 1px solid #dce9e4;
+      cursor: pointer;
+      transition: 0.25s;
+    }
+
+    .step-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 18px rgba(15, 70, 50, 0.12);
+    }
+
+    .step-item.active {
+      background: #0f6b4a;
+      color: #ffffff;
+      border-color: #0f6b4a;
+      box-shadow: 0 8px 18px rgba(15, 107, 74, 0.18);
+    }
+
+    .step-item.completed {
+      background: #dff4eb;
+      color: #0f6b4a;
+      border-color: #b9dfd0;
+    }
+
+    .step-number {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.55);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    .form-step {
+      display: none;
+      animation: fadeIn 0.25s ease-in-out;
+    }
+
+    .form-step.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .step-navigation {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-top: -10px;
+    }
+
+    .step-spacer {
+      flex: 1;
+    }
+
+    .nav-btn {
+      border: none;
+      padding: 14px 30px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.25s;
+    }
+
+    .prev-btn {
+      background: #e8f0ed;
+      color: #12332a;
+    }
+
+    .next-btn {
+      background: #0f6b4a;
+      color: #ffffff;
+    }
+
+    .nav-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 18px rgba(15, 70, 50, 0.15);
+    }
+
+
+
+    .progress-wrap {
+      margin: -12px 0 30px;
+      padding: 14px 16px;
+      background: #f3faf7;
+      border: 1px solid #dce9e4;
+      border-radius: 14px;
+    }
+
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      color: #0f6b4a;
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .progress-track {
+      height: 9px;
+      background: #dce9e4;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      width: 0%;
+      height: 100%;
+      background: #0f6b4a;
+      border-radius: 999px;
+      transition: width 0.25s ease;
+    }
+
+    .draft-status {
+      margin-top: 8px;
+      color: #66736f;
+      font-size: 12px;
+      text-align: right;
+    }
+
+    .strength-wrap {
+      margin-top: 8px;
+    }
+
+    .strength-track {
+      height: 7px;
+      background: #e8f0ed;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .strength-fill {
+      height: 100%;
+      width: 0%;
+      background: #a82424;
+      transition: 0.25s;
+    }
+
+    .strength-text {
+      margin-top: 5px;
+      font-size: 12px;
+      color: #66736f;
+      text-align: right;
+      font-weight: 700;
+    }
+
+    .file-preview {
+      margin-top: 10px;
+      padding: 12px 14px;
+      border: 1px dashed #b9dfd0;
+      border-radius: 12px;
+      background: #f3faf7;
+      color: #12332a;
+      font-size: 13px;
+      display: none;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .remove-file-btn,
+    .edit-section-btn,
+    .clear-draft-btn {
+      border: none;
+      border-radius: 10px;
+      padding: 8px 12px;
+      background: #e8f0ed;
+      color: #0f6b4a;
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    .review-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .review-card {
+      border: 1px solid #dce9e4;
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 18px;
+    }
+
+    .review-card.full {
+      grid-column: span 2;
+    }
+
+    .review-card-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 12px;
+      border-bottom: 1px solid #edf4f1;
+      padding-bottom: 10px;
+    }
+
+    .review-card h3 {
+      color: #083d2e;
+      font-size: 17px;
+    }
+
+    .review-row {
+      display: grid;
+      grid-template-columns: 170px 1fr;
+      gap: 10px;
+      padding: 7px 0;
+      border-bottom: 1px solid #f1f5f3;
+      font-size: 13px;
+    }
+
+    .review-row:last-child {
+      border-bottom: none;
+    }
+
+    .review-label {
+      font-weight: 800;
+      color: #58716a;
+    }
+
+    .review-value {
+      color: #12332a;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .review-note {
+      margin-bottom: 18px;
+      padding: 14px 16px;
+      border-radius: 12px;
+      background: #e8f7ef;
+      color: #0f6b4a;
+      border: 1px solid #b7e3ca;
+      font-weight: 700;
+      line-height: 1.5;
+    }
+
+    /* ── Info tooltip ─────────────────────────────────────────────────────── */
+    .tooltip-wrap {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .tooltip-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 17px;
+      height: 17px;
+      border-radius: 50%;
+      background: #0f6b4a;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 800;
+      cursor: pointer;
+      flex-shrink: 0;
+      line-height: 1;
+      user-select: none;
+    }
+
+    .tooltip-box {
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: auto;
+      position: absolute;
+
+      /* Desktop: right side */
+      left: calc(100% + 10px);
+      top: 50%;
+      transform: translateY(-50%);
+
+      background: #083d2e;
+      color: #e8f7ef;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 10px 13px;
+      border-radius: 10px;
+      width: 270px;
+      max-width: min(270px, calc(100vw - 32px));
+
+      box-shadow: 0 8px 22px rgba(15, 70, 50, 0.22);
+      transition: opacity 0.18s ease;
+      z-index: 100;
+    }
+
+    .tooltip-box::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: 100%;
+      transform: translateY(-50%);
+
+      border: 6px solid transparent;
+      border-right-color: #083d2e;
+    }
+
+    .tooltip-wrap:hover .tooltip-box,
+    .tooltip-wrap:focus-within .tooltip-box {
+      visibility: visible;
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .tooltip-box a {
+      color: inherit;
+      text-decoration: underline;
+    }
+
+    /* ─────────────────────────────────────────────────────────────────────── */
+
+    @media (max-width: 768px) {
+      .form-container {
+        padding: 25px;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-group.full {
+        grid-column: span 1;
+      }
+
+      .stepper {
+        grid-template-columns: 1fr;
+      }
+
+      .step-title {
+        display: inline;
+      }
+
+      .step-navigation {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .step-spacer {
+        display: none;
+      }
+
+      .nav-btn,
+      .submit-btn {
+        width: 100%;
+      }
+
+      .review-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .review-card.full {
+        grid-column: span 1;
+      }
+
+      .review-row {
+        grid-template-columns: 1fr;
+      }
+
+
+      .tooltip-box {
+        left: 50%;
+        top: auto;
+        bottom: calc(100% + 8px);
+        transform: translateX(-50%);
+        width: min(270px, calc(100vw - 32px));
+      }
+
+      .tooltip-box::after {
+        top: 100%;
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+
+        border: 6px solid transparent;
+        border-top-color: #083d2e;
+      }
+    }
+  </style>
+<base target="_blank">
+</head>
+
+<body>
+  <div class="form-container">
+    <div class="form-header">
+      <h1>Idea Submission Form</h1>
+      <p>Submit your sustainability innovation idea</p>
+    </div>
+    <div class="alert" id="formMessage"></div>
+    <div class="stepper" id="formStepper">
+
+      <div class="step-item active" data-step="0">
+        <span class="step-number">1</span>
+        <span class="step-title">Team Details</span>
+      </div>
+      <div class="step-item" data-step="1">
+        <span class="step-number">2</span>
+        <span class="step-title">Team Lead</span>
+      </div>
+      <div class="step-item" data-step="2">
+        <span class="step-number">3</span>
+        <span class="step-title">Members</span>
+      </div>
+      <div class="step-item" data-step="3">
+        <span class="step-number">4</span>
+        <span class="step-title">Institute</span>
+      </div>
+      <div class="step-item" data-step="4">
+        <span class="step-number">5</span>
+        <span class="step-title">Faculty</span>
+      </div>
+      <div class="step-item" data-step="5"><span class="step-number">6</span><span class="step-title">Idea
+          Submission</span></div>
+      <div class="step-item" data-step="6"><span class="step-number">7</span><span class="step-title">Attachments</span>
+      </div>
+      <div class="step-item" data-step="7"><span class="step-number">8</span><span class="step-title">Review &amp;
+          Declaration</span></div>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-meta"><span id="progressLabel">Step 1 of 8</span><span id="progressPercent">13%
+          Complete</span></div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div class="draft-status" id="draftStatus">Draft auto-save is active.</div>
+    </div>
+    <form id="ideaSubmissionForm" novalidate>
+
+
+      <div class="form-step active" data-step="0">
+        <div class="section">
+          <h2>Team Details</h2>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Team Name *</label>
+              <input name="teamName" required="" type="text" placeholder="e.g. Green Innovators" />
+            </div>
+            <div class="form-group">
+              <label>Theme *</label>
+              <select id="theme" name="theme" class="dynamic-select" required="">
+
+                <option value="" selected disabled>Select a Theme</option>
+                <option value="natural"> Natural Resources and conservations</option>
+                <option value="agriculture"> Agriculture & Allied areas</option>
+                <option value="food"> Food and Nutrition</option>
+                <option value="economy"> Circular Economy</option>
+                <option value="greenEnergy"> Clean and Green Energy</option>
+                <option value="ruralDev"> Sustainability in Rural Development</option>
+                <option value="builtEnviron"> Built Environment</option>
+                <option value="healthcare"> Healthcare and Medical Sustainability</option>
+                <option value="water"> Water and Wastewater Systems</option>
+                <option value="waste"> Solid Waste Management</option>
+                <option value="transport"> Sustainable Transportation and Mobility</option>
+                <option value="livelihood"> Livelihoods Sustainability</option>
+                <option value="corporate"> Corporate Sustainability</option>
+                <option value="others"> Other areas focused on sustainability</option>
+              </select>
+
+              <div class="hidden other-input-container" data-dependency="theme">
+                <label>Please specify Theme *</label>
+                <input type="text" name="customTheme" placeholder="Type your Theme...">
+              </div>
+
+            </div>
+            <div class="form-group">
+              <label>Number of Team Members *</label>
+              <select id="numberOfMembers" name="numberOfMembers" required="">
+                <option value="" selected disabled>Select</option>
+                <option value="3">3 Members</option>
+                <option value="4">4 Members</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="step-navigation"><button class="nav-btn prev-btn" type="button"
+            onclick="window.location.href = 'student-dashboard.html'">Back</button><span
+            class="step-spacer"></span><button class="nav-btn next-btn" type="button">Save &amp; Next</button></div>
+      </div>
+
+
+
+      <!-- STEP 1: TEAM LEAD -->
+      <div class="form-step" data-step="1">
+        <div class="section">
+          <h2>Team Lead Details</h2>
+          <div class="form-grid">
+            <div class="form-group"><label>First Name *</label><input name="leadFirstName" required="" type="text" />
+            </div>
+            <div class="form-group"><label>Last Name *</label><input name="leadLastName" required="" type="text" />
+            </div>
+
+            <div class="form-group">
+              <label>Gender *</label>
+              <select name="leadGender" required>
+                <option value="" selected disabled>Select</option>
+                <option>Female</option>
+                <option>Male</option>
+                <option>Other</option>
+                <option>Prefer not to say</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Date of Birth *</label>
+              <input type="date" name="leadAge" id="leadAge" required>
+            </div>
+
+            <div class="form-group">
+              <label>
+                <span class="tooltip-wrap">
+                  Full Institution Name *
+                  <span class="tooltip-icon" tabindex="0" role="tooltip" aria-label="What to enter here">i</span>
+                  <span class="tooltip-box">
+                    Enter the <strong>complete official name</strong> of your institution exactly as it appears on your
+                    identity card or official documents.<br><br>
+                    <em>e.g. "Indian Institute of Technology Bombay" not "IIT Bombay"</em>
+                  </span>
+                </span>
+              </label>
+              <input name="leadInstitute" required type="text" />
+            </div>
+            <div class="form-group">
+              <label>Qualification Level *</label>
+              <select name="leadQualificationLevel" class="dynamic-select" required>
+                <option value="" selected disabled>Select</option>
+                <option value="bachelors">Bachelors</option>
+                <option value="masters">Masters</option>
+                <option value="phd">PhD</option>
+                <option value="other">Other</option>
+              </select>
+
+              <div class="hidden mt-2 other-input-container" data-dependency="leadQualificationLevel">
+                <label>Please specify qualification *</label>
+                <input type="text" name="customQualification" placeholder="Type your qualification...">
+              </div>
+
+            </div>
+
+            <div class="form-group">
+              <label>Degree / Program *</label>
+              <select name="leadDegree" class="dynamic-select" required="">
+                <option value="" selected disabled>Select</option>
+                <option value="ba">B.A.</option>
+                <option value="bsc">B.Sc.</option>
+                <option value="bcom">B.Com</option>
+                <option value="btech">B.Tech / B.E.</option>
+                <option value="bba">BBA</option>
+                <option value="bca">BCA</option>
+                <option value="bdesc">B.Des</option>
+                <option value="ma">M.A.</option>
+                <option value="msc">M.Sc.</option>
+                <option value="mcom">M.Com</option>
+                <option value="mba">MBA</option>
+                <option value="mca">MCA</option>
+                <option value="mtech">M.Tech / M.E.</option>
+                <option value="mdesc">M.Des</option>
+                <option value="llb">LLB / LLM</option>
+                <option value="mbbs">MBBS</option>
+                <option value="bpharm">B.Pharm</option>
+                <option value="ms">MS</option>
+                <option value="other">Other</option>
+              </select>
+
+
+              <div class="hidden mt-2 other-input-container" data-dependency="leadDegree">
+                <label>Please specify qualification *</label>
+                <input type="text" name="customDegree" placeholder="Type your Degree...">
+              </div>
+
+
+            </div>
+            <div class="form-group">
+              <label>Current Year / Semester *</label>
+              <select name="leadYearSemester" class="dynamic-select" required>
+                <option value="" selected disabled>Select</option>
+
+                <option value="1">First</option>
+                <option value="2">Second</option>
+                <option value="3">Third</option>
+                <option value="4">Fourth</option>
+                <option value="5">Fifth</option>
+                <option value="other">Other</option>
+              </select>
+
+              <div class="hidden mt-2 other-input-container" data-dependency="leadYearSemester">
+                <label>Please specify year/semester *</label>
+                <input type="text" name="customYearSemester" placeholder="Type your Year/Semester...">
+              </div>
+
+            </div>
+            <div class="form-group">
+              <label>Student ID / Registration Number / Enrollment Number (optional)</label>
+              <input name="leadStudentId" type="text" />
+            </div>
+            <div class="form-group">
+              <label>Email Address *</label>
+              <input name="leadEmail" id="leadEmail" required type="email" />
+            </div>
+
+
+            <div class="form-group">
+              <label>Confirm Email Address *</label>
+              <input name="leadConfirmEmail" id="leadConfirmEmail" required type="email" />
+            </div>
+
+
+
+            <div class="form-group">
+              <label>Mobile Number *</label>
+              <input maxlength="10" name="leadMobile" required="" type="tel" />
+            </div>
+            <div class="form-group">
+              <label>Alternate Contact Number</label>
+              <input maxlength="10" name="leadAlternateMobile" type="tel" />
+            </div>
+            <!-- <div class="form-group">
+              <label>Village / City *</label>
+              <input name="leadCityVillage" type="text" />
+            </div> -->
+            <div class="form-group">
+              <label>Permanent Address *</label>
+              <input name="leadBlock" required="" type="text" />
+            </div>
+            <div class="form-group">
+              <label>District *</label>
+              <input name="leadDistrict" required="" type="text" />
+            </div>
+            <div class="form-group">
+              <label>State *</label>
+              <select name="leadState" required="">
+                <option value="" selected disabled>Select</option>
+                <option value="andhra-pradesh">Andhra Pradesh</option>
+                <option value="arunachal-pradesh">Arunachal Pradesh</option>
+                <option value="assam">Assam</option>
+                <option value="bihar">Bihar</option>
+                <option value="chhattisgarh">Chhattisgarh</option>
+                <option value="goa">Goa</option>
+                <option value="gujarat">Gujarat</option>
+                <option value="haryana">Haryana</option>
+                <option value="himachal-pradesh">Himachal Pradesh</option>
+                <option value="jharkhand">Jharkhand</option>
+                <option value="karnataka">Karnataka</option>
+                <option value="kerala">Kerala</option>
+                <option value="madhya-pradesh">Madhya Pradesh</option>
+                <option value="maharashtra">Maharashtra</option>
+                <option value="manipur">Manipur</option>
+                <option value="meghalaya">Meghalaya</option>
+                <option value="mizoram">Mizoram</option>
+                <option value="nagaland">Nagaland</option>
+                <option value="odisha">Odisha</option>
+                <option value="punjab">Punjab</option>
+                <option value="rajasthan">Rajasthan</option>
+                <option value="sikkim">Sikkim</option>
+                <option value="tamil-nadu">Tamil Nadu</option>
+                <option value="telangana">Telangana</option>
+                <option value="tripura">Tripura</option>
+                <option value="uttar-pradesh">Uttar Pradesh</option>
+                <option value="uttarakhand">Uttarakhand</option>
+                <option value="west-bengal">West Bengal</option>
+                <option value="JK">Jammu and Kashmir</option>
+                <option value="delhi">Delhi</option>
+                <option value="daman_diu_dadra_nagar">Dadra and Nagar Haveli and Daman and Diu</option>
+                <option value="puducherry">Puducherry</option>
+                <option value="lakshadweep">Lakshadweep</option>
+                <option value="andaman_nicobar">Andaman and Nicobar</option>
+                <option value="ladakh">Ladakh</option>
+                <option value="chandigarh">Chandigarh</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>PIN Code *</label>
+              <input maxlength="6" name="leadPincode" pattern="[0-9]{6}" required="" type="text" />
+            </div>
+          </div>
+        </div>
+        <div class="step-navigation"><button class="nav-btn prev-btn" type="button">Previous</button><span
+            class="step-spacer"></span><button class="nav-btn next-btn" type="button">Save &amp; Next</button></div>
+      </div>
+
+      <div class="form-step" data-step="2">
+        <div class="section">
+          <h2>Team Member Details</h2>
+          <h3 class="sub-heading">Member 2</h3>
+          <div class="form-grid">
+            <div class="form-group"><label>First Name *</label><input name="member2FirstName" required="" type="text" />
+            </div>
+            <div class="form-group"><label>Last Name *</label><input name="member2LastName" required="" type="text" />
+            </div>
+            <div class="form-group">
+              <label>Gender *</label>
+              <select name="member2Gender" required="">
+                <option value="" selected disabled>Select</option>
+                <option>Female</option>
+                <option>Male</option>
+                <option>Other</option>
+                <option>Prefer not to say</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Date of Birth *</label>
+              <input type="date" name="member2Age" id="member2Age" required>
+            </div>
+
+            <div class="form-group"><label>Qualification Level *</label>
+
+              <select name="member2QualificationLevel" class="dynamic-select" required="">
+                <option value="" selected disabled>Select</option>
+                <option value="bachelors">Bachelors</option>
+                <option value="masters">Masters</option>
+                <option value="phd">PhD</option>
+                <option value="other">Other</option>
+              </select>
+              <div class="hidden mt-2 other-input-container" data-dependency="member2QualificationLevel">
+                <label>Please specify qualification *</label>
+                <input type="text" name="member2CustomQualification" placeholder="Type your Qualification...">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Degree / Program *</label>
+              <select name="member2Degree" class="dynamic-select" required="">
+                <option value="" selected disabled>Select</option>
+                <option value="ba">B.A.</option>
+                <option value="bsc">B.Sc.</option>
+                <option value="bcom">B.Com</option>
+                <option value="btech">B.Tech / B.E.</option>
+                <option value="bba">BBA</option>
+                <option value="bca">BCA</option>
+                <option value="bdesc">B.Des</option>
+                <option value="ma">M.A.</option>
+                <option value="msc">M.Sc.</option>
+                <option value="mcom">M.Com</option>
+                <option value="mba">MBA</option>
+                <option value="mca">MCA</option>
+                <option value="mtech">M.Tech / M.E.</option>
+                <option value="mdesc">M.Des</option>
+                <option value="llb">LLB / LLM</option>
+                <option value="mbbs">MBBS</option>
+                <option value="bpharm">B.Pharm</option>
+                <option value="ms">MS</option>
+                <option value="other">Other</option>
+              </select>
+              <div class="hidden mt-2 other-input-container" data-dependency="member2Degree">
+                <label>Please specify degree *</label>
+                <input type="text" name="member2CustomDegree" placeholder="Type your Degree...">
+              </div>
+
+            </div>
+            <div class="form-group"><label>Current Year / Semester *</label>
+              <select name="member2YearSemester" class="dynamic-select" required>
+                <option value="" selected disabled>Select</option>
+                <option value="1">First</option>
+                <option value="2">Second</option>
+                <option value="3">Third</option>
+                <option value="4">Fourth</option>
+                <option value="5">Fifth</option>
+                <option value="other">Other</option>
+              </select>
+              <div class="hidden mt-2 other-input-container" data-dependency="member2YearSemester">
+                <label>Please specify year/semester *</label>
+                <input type="text" name="member2CustomYearSemester" placeholder="Type your Year/Semester...">
+              </div>
+            </div>
+            <div class="form-group"><label>
+                <span class="tooltip-wrap">
+                  Full Institution Name *
+                  <span class="tooltip-icon" tabindex="0" role="tooltip" aria-label="What to enter here">i</span>
+                  <span class="tooltip-box">
+                    Enter the <strong>complete official name</strong> of your institution exactly as it appears on your
+                    identity card or official documents.<br><br>
+                    <em>e.g. "Indian Institute of Technology Bombay" not "IIT Bombay"</em>
+                  </span>
+                </span>
+              </label><input name="member2College" required="" type="text" /></div>
+            <div class="form-group"><label>Student ID / Registration Number / Enrollment Number (optional)</label><input
+                name="member2StudentId" type="text" /></div>
+            <div class="form-group"><label>Email Address *</label><input name="member2Email" required="" type="email" />
+            </div>
+            <div class="form-group"><label>Mobile Number *</label><input maxlength="10" name="member2Mobile" required=""
+                type="tel" /></div>
+          </div>
+
+          <h3 class="sub-heading">Member 3</h3>
+          <div class="form-grid">
+            <div class="form-group"><label>First Name *</label><input name="member3FirstName" required="" type="text" />
+            </div>
+            <div class="form-group"><label>Last Name *</label><input name="member3LastName" required="" type="text" />
+            </div>
+            <div class="form-group">
+              <label>Gender *</label>
+              <select name="member3Gender" required="">
+                <option value="" selected disabled>Select</option>
+                <option>Female</option>
+                <option>Male</option>
+                <option>Other</option>
+                <option>Prefer not to say</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Date of Birth *</label>
+              <input type="date" name="member3Age" id="member3Age" required>
+            </div>
+
+            <div class="form-group"><label>Qualification Level *</label>
+              <select name="member3QualificationLevel" class="dynamic-select" required="">
+                <option value="" selected disabled>Select</option>
+                <option value="bachelors">Bachelors</option>
+                <option value="masters">Masters</option>
+                <option value="phd">PhD</option>
+                <option value="other">Other</option>
+              </select>
+
+              <div class="hidden mt-2 other-input-container" data-dependency="member3QualificationLevel">
+                <label>Please specify qualification *</label>
+                <input type="text" name="member3CustomQualification" placeholder="Type your Qualification...">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Degree / Program *</label>
+              <select name="member3Degree" class="dynamic-select" required="">
+                <option value="" selected disabled>Select</option>
+                <option value="ba">B.A.</option>
+                <option value="bsc">B.Sc.</option>
+                <option value="bcom">B.Com</option>
+                <option value="btech">B.Tech / B.E.</option>
+                <option value="bba">BBA</option>
+                <option value="bca">BCA</option>
+                <option value="bdesc">B.Des</option>
+                <option value="ma">M.A.</option>
+                <option value="msc">M.Sc.</option>
+                <option value="mcom">M.Com</option>
+                <option value="mba">MBA</option>
+                <option value="mca">MCA</option>
+                <option value="mtech">M.Tech / M.E.</option>
+                <option value="mdesc">M.Des</option>
+                <option value="llb">LLB / LLM</option>
+                <option value="mbbs">MBBS</option>
+                <option value="bpharm">B.Pharm</option>
+                <option value="ms">MS</option>
+                <option value="other">Other</option>
+              </select>
+              <div class="hidden mt-2 other-input-container" data-dependency="member3Degree">
+                <label>Please specify degree *</label>
+                <input type="text" name="member3CustomDegree" placeholder="Type your Degree...">
+              </div>
+
+            </div>
+            <div class="form-group"><label>Current Year / Semester *</label>
+              <select name="member3YearSemester" class="dynamic-select" required>
+                <option value="" selected disabled>Select</option>
+                <option value="1">First</option>
+                <option value="2">Second</option>
+                <option value="3">Third</option>
+                <option value="4">Fourth</option>
+                <option value="5">Fifth</option>
+                <option value="other">Other</option>
+              </select>
+
+              <div class="hidden mt-2 other-input-container" data-dependency="member3YearSemester">
+                <label>Please specify year/semester *</label>
+                <input type="text" name="member3CustomYearSemester" placeholder="Type your Year/Semester...">
+              </div>
+
+            </div>
+            <div class="form-group"><label>
+                <span class="tooltip-wrap">
+                  Full Institution Name *
+                  <span class="tooltip-icon" tabindex="0" role="tooltip" aria-label="What to enter here">i</span>
+                  <span class="tooltip-box">
+                    Enter the <strong>complete official name</strong> of your institution exactly as it appears on your
+                    identity card or official documents.<br><br>
+                    <em>e.g. "Indian Institute of Technology Bombay" not "IIT Bombay"</em>
+                  </span>
+                </span>
+              </label><input name="member3College" required="" type="text" /></div>
+            <div class="form-group"><label>Student ID / Registration Number / Enrollment Number (optional)</label><input
+                name="member3StudentId" type="text" /></div>
+            <div class="form-group"><label>Email Address *</label><input name="member3Email" required="" type="email" />
+            </div>
+            <div class="form-group"><label>Mobile Number *</label><input maxlength="10" name="member3Mobile" required=""
+                type="tel" /></div>
+          </div>
+
+          <div class="hidden" id="member4Section">
+            <h3 class="sub-heading">Member 4 Optional</h3>
+            <div class="form-grid">
+              <div class="form-group"><label>First Name</label><input name="member4FirstName" type="text" /></div>
+              <div class="form-group"><label>Last Name</label><input name="member4LastName" type="text" /></div>
+              <div class="form-group">
+                <label>Gender</label>
+                <select name="member4Gender">
+                  <option value="" selected disabled>Select</option>
+                  <option>Female</option>
+                  <option>Male</option>
+                  <option>Other</option>
+                  <option>Prefer not to say</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label>Date of Birth *</label>
+                <input type="date" name="member4Age" id="member4Age">
+              </div>
+
+              <div class="form-group"><label>Qualification Level</label>
+                <select name="member4QualificationLevel" class="dynamic-select">
+                  <option value="" selected disabled>Select</option>
+                  <option value="bachelors">Bachelors</option>
+                  <option value="masters">Masters</option>
+                  <option value="phd">PhD</option>
+                  <option value="other">Other</option>
+                </select>
+
+                <div class="hidden mt-2 other-input-container" data-dependency="member4QualificationLevel">
+                  <label>Please specify qualification *</label>
+                  <input type="text" name="member4CustomQualification" placeholder="Type your Qualification...">
+                </div>
+
+              </div>
+              <div class="form-group"> <label>Degree / Program *</label>
+                <select name="member4Degree" class="dynamic-select">
+                  <option value="" selected disabled>Select</option>
+                  <option value="ba">B.A.</option>
+                  <option value="bsc">B.Sc.</option>
+                  <option value="bcom">B.Com</option>
+                  <option value="btech">B.Tech / B.E.</option>
+                  <option value="bba">BBA</option>
+                  <option value="bca">BCA</option>
+                  <option value="bdesc">B.Des</option>
+                  <option value="ma">M.A.</option>
+                  <option value="msc">M.Sc.</option>
+                  <option value="mcom">M.Com</option>
+                  <option value="mba">MBA</option>
+                  <option value="mca">MCA</option>
+                  <option value="mtech">M.Tech / M.E.</option>
+                  <option value="mdesc">M.Des</option>
+                  <option value="llb">LLB / LLM</option>
+                  <option value="mbbs">MBBS</option>
+                  <option value="bpharm">B.Pharm</option>
+                  <option value="ms">MS</option>
+                  <option value="other">Other</option>
+                </select>
+
+                <div class="hidden mt-2 other-input-container" data-dependency="member4Degree">
+                  <label>Please specify degree *</label>
+                  <input type="text" name="member4CustomDegree" placeholder="Type your Degree...">
+                </div>
+
+              </div>
+              <div class="form-group"><label>Current Year / Semester</label>
+                <select name="member4YearSemester" class="dynamic-select">
+                  <option value="" selected disabled>Select</option>
+                  <option value="1">First</option>
+                  <option value="2">Second</option>
+                  <option value="3">Third</option>
+                  <option value="4">Fourth</option>
+                  <option value="5">Fifth</option>
+                  <option value="other">Other</option>
+                </select>
+
+                <div class="hidden mt-2 other-input-container" data-dependency="member4YearSemester">
+                  <label>Please specify year/semester *</label>
+                  <input type="text" name="member4CustomYearSemester" placeholder="Type your Year/Semester...">
+                </div>
+
+              </div>
+              <div class="form-group">
+                <label>
+                  <span class="tooltip-wrap">
+                    Full Institution Name *
+                    <span class="tooltip-icon" tabindex="0" role="tooltip" aria-label="What to enter here">i</span>
+                    <span class="tooltip-box">
+                      Enter the <strong>complete official name</strong> of your institution exactly as it appears on
+                      your identity card or official documents.<br><br>
+                      <em>e.g. "Indian Institute of Technology Bombay" not "IIT Bombay"</em>
+                    </span>
+                  </span>
+                </label>
+
+                <input name="member4College" type="text" />
+              </div>
+              <div class="form-group"><label>Student ID / Registration Number / Enrollment Number (optional)</label><input
+                  name="member4StudentId" type="text" /></div>
+              <div class="form-group"><label>Email Address</label><input name="member4Email" type="email" /></div>
+              <div class="form-group"><label>Mobile Number</label><input maxlength="10" name="member4Mobile"
+                  type="tel" /></div>
+            </div>
+          </div>
+        </div>
+        <div class="step-navigation"><button class="nav-btn prev-btn" type="button">Previous</button><span
+            class="step-spacer"></span><button class="nav-btn next-btn" type="button">Save &amp; Next</button></div>
+      </div>
+
+      <div class="form-step" data-step="3">
+        <div class="section">
+          <h2>Institute Details</h2>
+          <p class="note" style="margin-bottom: 20px;">Please provide the official institution details for verification
+            and communication purposes.</p>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>
+                <span class="tooltip-wrap">
+                  Full Institution Name *
+                  <span class="tooltip-icon" tabindex="0" role="tooltip" aria-label="What to enter here">i</span>
+                  <span class="tooltip-box">
+                    Enter the <strong>complete official name</strong> of your institution exactly as it appears on your
+                    identity card or official documents.<br><br>
+                    <em>e.g. "Indian Institute of Technology Bombay" not "IIT Bombay"</em>
+                  </span>
+                </span>
+              </label>
+              <input name="leadCollege" required="" type="text"
+                placeholder="e.g. Indian Institute of Technology Bombay" />
+            </div>
+            <!-- <div class="form-group">
+              <label>Village / City *</label>
+              <input name="collegeCityVillage"  type="text" />
+            </div> -->
+            <div class="form-group">
+              <label>Complete Institute Address *</label>
+              <input name="collegeBlock" required="" type="text" />
+            </div>
+            <div class="form-group">
+              <label>District *</label>
+              <input name="collegeDistrict" required="" type="text" />
+            </div>
+            <div class="form-group">
+              <label>State *</label>
+              <select name="collegeState" required="">
+                <option value="" selected disabled>Select</option>
+                <option value="andhra-pradesh">Andhra Pradesh</option>
+                <option value="arunachal-pradesh">Arunachal Pradesh</option>
+                <option value="assam">Assam</option>
+                <option value="bihar">Bihar</option>
+                <option value="chhattisgarh">Chhattisgarh</option>
+                <option value="goa">Goa</option>
+                <option value="gujarat">Gujarat</option>
+                <option value="haryana">Haryana</option>
+                <option value="himachal-pradesh">Himachal Pradesh</option>
+                <option value="jharkhand">Jharkhand</option>
+                <option value="karnataka">Karnataka</option>
+                <option value="kerala">Kerala</option>
+                <option value="madhya-pradesh">Madhya Pradesh</option>
+                <option value="maharashtra">Maharashtra</option>
+                <option value="manipur">Manipur</option>
+                <option value="meghalaya">Meghalaya</option>
+                <option value="mizoram">Mizoram</option>
+                <option value="nagaland">Nagaland</option>
+                <option value="odisha">Odisha</option>
+                <option value="punjab">Punjab</option>
+                <option value="rajasthan">Rajasthan</option>
+                <option value="sikkim">Sikkim</option>
+                <option value="tamil-nadu">Tamil Nadu</option>
+                <option value="telangana">Telangana</option>
+                <option value="tripura">Tripura</option>
+                <option value="uttar-pradesh">Uttar Pradesh</option>
+                <option value="uttarakhand">Uttarakhand</option>
+                <option value="west-bengal">West Bengal</option>
+                <option value="JK">Jammu and Kashmir</option>
+                <option value="delhi">Delhi</option>
+                 <option value="daman_diu_dadra_nagar">Dadra and Nagar Haveli and Daman and Diu</option>
+                <option value="puducherry">Puducherry</option>
+                <option value="lakshadweep">Lakshadweep</option>
+                <option value="andaman_nicobar">Andaman and Nicobar</option>
+                <option value="ladakh">Ladakh</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>PIN Code *</label>
+              <input maxlength="6" name="collegePincode" pattern="[0-9]{6}" required="" type="text" />
+            </div>
+          </div>
+        </div>
+        <div class="step-navigation"><button class="nav-btn prev-btn" type="button">Previous</button><span
+            class="step-spacer"></span><button class="nav-btn next-btn" type="button">Save &amp; Next</button></div>
+      </div>
+
+      <div class="form-step" data-step="4">
+        <div class="section">
+          <h2>Faculty Mentor Details</h2>
+          <div class="form-grid">
+            <div class="form-group"><label>First Name *</label><input name="facultyFirstName" required="" type="text" />
+            </div>
+            <div class="form-group"><label>Last Name *</label><input name="facultyLastName" required="" type="text" />
+            </div>
+            <div class="form-group">
+              <label>Gender *</label>
+              <select name="facultyGender" required="">
+                <option value="" selected disabled>Select</option>
+                <option>Female</option>
+                <option>Male</option>
+                <option>Other</option>
+                <option>Prefer not to say</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Highest Qualification *</label>
+              <select name="facultyQualification" required>
+                <option value="" selected disabled>Select</option>
+                <option value="bachelors">Bachelors</option>
+                <option value="masters">Masters</option>
+                <option value="phd">PhD</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="form-group"><label>Designation *</label><input name="facultyDesignation" required=""
+                type="text" /></div>
+            <div class="form-group"><label>Department *</label><input name="facultyDepartment" required=""
+                type="text" /></div>
+            <div class="form-group"><label>Area of Interest *</label>
+
+              <select id="facultyAreaOfInterest" name="facultyAreaOfInterest" class="dynamic-select" required="">
+                <option value="" selected disabled>Select</option>
+                <option value="natural"> Natural Resources and conservations</option>
+                <option value="agriculture"> Agriculture & Allied areas</option>
+                <option value="food"> Food and Nutrition</option>
+                <option value="economy"> Circular Economy</option>
+                <option value="greenEnergy"> Clean and Green Energy</option>
+                <option value="ruralDev"> Sustainability in Rural Development</option>
+                <option value="builtEnviron"> Built Environment</option>
+                <option value="healthcare"> Healthcare and Medical Sustainability</option>
+                <option value="water"> Water and Wastewater Systems</option>
+                <option value="waste"> Solid Waste Management</option>
+                <option value="transport"> Sustainable Transportation and Mobility</option>
+                <option value="livelihood"> Livelihoods Sustainability</option>
+                <option value="corporate"> Corporate Sustainability</option>
+                <option value="others"> Other areas focused on sustainability</option>
+              </select>
+
+              <div class="hidden other-input-container" data-dependency="facultyAreaOfInterest">
+                <label>Please specify Area of Interest *</label>
+                <input type="text" name="customfacultyAreaOfInterest" placeholder="Type your Area of Interest...">
+              </div>
+            </div>
+            <div class="form-group"><label>Area of Expertise / Research Interest *</label><input name="facultyExpertise"
+                placeholder="e.g. AI/ML, Renewable Energy, Waste Management, IoT" required="" type="text" /></div>
+            <div class="form-group"><label>Institute Name *</label><input name="facultyCollege" required=""
+                type="text" /></div>
+            <!-- <div class="form-group"><label>Employee ID If Applicable</label><input name="facultyEmployeeId"
+                  type="text" /></div> -->
+            <div class="form-group"><label>Email Address *</label><input name="facultyEmail" required="" type="email" />
+            </div>
+            <div class="form-group"><label>Mobile Number *</label><input maxlength="10" name="facultyMobile" required=""
+                type="tel" /></div>
+          </div>
+        </div>
+        <div class="step-navigation"><button class="nav-btn prev-btn" type="button">Previous</button><span
+            class="step-spacer"></span><button class="nav-btn next-btn" type="button">Save &amp; Next</button></div>
+      </div>
+
+      <div class="form-step" data-step="5">
+        <div class="section">
+          <h2>Idea Submission</h2>
+          <div class="form-grid">
+            <div class="form-group full">
+              <label><span class="question-number">1.</span> Briefly describe the problem statement and its severity.</label>
+              <textarea data-max-words="100" maxlength="650" name="motivation" placeholder="Maximum 100 words"
+                required=""></textarea>
+              <span class="note">Maximum 100 words</span>
+            </div>
+
+
+
+              <div class="form-group full">
+                <label><span class="question-number">2a.</span> How was the problem defined, validated, and quantified across the sustainability pillars?</label>
+                <textarea data-max-words="200" maxlength="1250" name="challengeImportance"
+                  placeholder="Maximum 200 words" required=""></textarea>
+                <span class="note">Maximum 200 words</span>
+              </div>
+
+
+            <div class="form-group full">
+              <label>
+                <span class="question-number">2b.</span>
+                Allocate the percentage contribution of your idea to each sustainability pillar.
+                <br><small>The total must equal exactly 100%.</small>
+              </label>
+
+              <div class="form-grid">
+                <div class="form-group">
+                  <label>Environmental (%)</label>
+                  <input type="number" id="envPct" name="_envPct"  min="0" max="100" value="" step="1" required>
+                </div>
+
+                <div class="form-group">
+                  <label>Human (%) </label>
+                  <input type="number" id="humPct" name="_humPct" min="0" max="100" value="" step="1" required>
+                </div>
+
+                <div class="form-group">
+                  <label>Cultural (%)</label>
+                  <input type="number" id="culPct" name="_culPct"  min="0" max="100" value="" step="1" required>
+                </div>
+
+                <div class="form-group">
+                  <label>Social (%) </label>
+                  <input type="number" id="socialPct" name="_socialPct"  min="0" max="100" value="" step="1" required>
+                </div>
+
+                <div class="form-group">
+                  <label>Economic (%) </label>
+                  <input type="number" id="ecoPct" name="_ecoPct"  min="0" max="100" value="" step="1" required>
+                </div>
+              </div>
+
+              <p id="totalDisplay" style="margin-top:10px;font-weight:700;color:#a82424;">Total: 0%</p>
+
+              <p id="feasibilityError" style="display:none;color:#a82424;font-weight:600;">
+                Total percentage must equal exactly 100%.
+              </p>
+
+              <!-- Stored as: env-{val},hum-{val},cul-{val},social-{val},eco-{val} -->
+              <input type="hidden" name="feasibility" id="feasibility" value="env-50,hum-20,cul-20,social-10,eco-0">
+            </div>
+
+
+
+            <div class="form-group full">
+              <label><span class="question-number">3.</span> Who are the major target beneficiaries and key stakeholders, and what are their respective roles?			
+</label>
+              <textarea data-max-words="150" maxlength="950" name="beneficiaries" placeholder="Maximum 150 words"
+                required=""></textarea>
+              <span class="note">Maximum 150 words</span>
+            </div>
+
+ <div class="form-group full">
+              <label><span class="question-number">4.</span> Briefly describe your proposed solution, highlighting its key features.</label>
+              <textarea data-max-words="250" maxlength="1550" name="solutionDescription" placeholder="Maximum 250 words"
+                required=""></textarea>
+              <span class="note">Maximum 100 words</span>
+            </div>
+           
+            <div class="form-group full">
+              <label><span class="question-number">5.</span>
+              Explain the uniqueness, innovation, and originality of your proposed solution, highlighting how it differs from existing or comparable solutions.            
+              </label>
+              <textarea data-max-words="200" maxlength="1250" name="innovation" placeholder="Maximum 200 words"
+                required=""></textarea>
+              <span class="note">Maximum 200 words</span>
+            </div>
+
+            <div class="form-group full">
+              <label>
+                <span class="tooltip-wrap">
+                  <span class="question-number">6.</span> Select the Technology Readiness Level (TRL) of your solution.			
+ <span class="tooltip-icon" tabindex="0" role="tooltip"
+                    aria-label="What to enter here">i</span>
+                  <span class="tooltip-box">
+                    For more Details refer <em>Page 9</em> of <strong> <a
+                        href="https://psa.gov.in/CMS/web/sites/default/files/publication/National%20Technology%20Readiness%20Assessment%20Framework_Final.pdf"
+                        target="_blank"> National Technology Readiness Level (TRL) Assessment Framework
+                      </a></strong> pdf to assess your idea's TRL level.<br><br>
+                  </span>
+                </span>
+              </label>
+              <select name="developmentStage" required="">
+                <option value="" selected disabled>Select stage</option>
+                <option value="trl1">TRL-1</option>
+                <option value="trl2">TRL-2</option>
+                <option value="trl3">TRL-3</option>
+                <option value="trl4">TRL-4</option>
+                <option value="trl5">TRL-5</option>
+                <option value="trl6">TRL-6</option>
+                <option value="trl7">TRL-7</option>
+                <option value="trl8">TRL-8</option>
+                <option value="trl9">TRL-9</option>
+
+              </select>
+            </div>
+
+            <div class="form-group full">
+              <label><span class="question-number">7.</span>Briefly explain the methodology, including technical approach, and key activities planned for the effective implementation of your solution.		
+</label>
+              <textarea data-max-words="250" maxlength="1550" name="technologyApproach" placeholder="Maximum 250 words"
+                required=""></textarea>
+              <span class="note">Maximum 250 words</span>
+            </div>
+
+
+            <div class="form-group full">
+              <label><span class="question-number">8.</span>What measurable (quantitative and qualitative indicators) impacts do you expect your solution to create?			
+</label>
+              <textarea data-max-words="150" maxlength="950" name="expectedImpact" placeholder="Maximum 150 words"
+                required=""></textarea>
+              <span class="note">Maximum 150 words</span>
+            </div>
+
+            <div class="form-group full">
+              <label><span class="question-number">9.</span>Briefly introduce your team, highlighting the key skills, expertise, and roles of each member.</label>
+              <textarea data-max-words="150" maxlength="950" name="teamSkills" placeholder="Maximum 150 words"
+                required=""></textarea>
+              <span class="note">Maximum 150 words</span>
+            </div>
+
+
+              <div class="form-group full">
+                <label><span class="question-number">10.</span>How do you plan to scale and sustain your start-up over time?</label>
+                <textarea data-max-words="100" maxlength="650" name="challenge" placeholder="Maximum 100 words"
+                  required=""></textarea>
+                <span class="note">Maximum 100 words</span>
+              </div>
+
+            <div class="form-group full">
+              <label>
+                <span class="question-number">11.</span>
+Has your solution received any awards, grants, incubation support, or other recognitions?			
+              </label>
+
+              <select id="receivedSupport" name="receivedSupport" required>
+                <option value="" selected disabled>Select an option</option>
+                <option value="No">No</option>
+                <option value="Yes">Yes</option>
+              </select>
+            </div>
+
+            <div id="supportDetailsGroup" style="display:none;">
+
+              <div class="form-group">
+
+                <label>
+                  <span class="question-number">11a.</span>
+ 			
+                </label>
+
+                <label>Please provide a brief description</label>
+                <input type="text" id="grantAgencyDesc" name="grantDescription" placeholder="" maxlength="350" data-max-words="50">
+
+
+                <label>Agency / Organisation / Scheme</label>
+                <input type="text" id="grantAgency" name="grantAgency" placeholder="e.g. Startup India Seed Fund">
+              </div>
+
+              <div class="form-group" style="margin-top:14px;">
+                <label>Amount Received (₹)</label>
+                <input type="number" id="grantAmount" name="grantAmount" min="1001" step="1"
+                  placeholder="e.g. 50000 (must be more than 1000)">
+              </div>
+
+              <div class="form-group" style="margin-top:14px;">
+                <label>Year of Grant</label>
+                <input type="number" id="grantYear" name="grantYear" min="1000" placeholder="e.g. 2024">
+              </div>
+
+            </div>
+
+            <!-- Actual submitted field: YES-{agency}-{amount}-{year} or No -->
+            <input type="hidden" name="hackathonSupport" id="hackathonSupport">
+
+            <!-- 
+              <div class="form-group full">
+                <label><span class="question-number">10c.</span>What percent of Cultural challenge does your Idea aim to
+                  address?</label>
+                <textarea data-max-words="100" maxlength="800" name="existingSolutions" placeholder="Maximum 100 words"
+                  required=""></textarea>
+                <span class="note">Maximum 100 words</span>
+              </div> -->
+
+          </div>
+        </div>
+        <div class="step-navigation"><button class="nav-btn prev-btn" type="button">Previous</button><span
+            class="step-spacer"></span><button class="nav-btn next-btn" type="button">Save &amp; Next</button></div>
+      </div>
+
+      <div class="form-step" data-step="6">
+        <div class="section">
+          <h2>Attachments</h2>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Concept Note / Supporting Document (Optional)</label>
+              <input accept=".pdf,.doc,.docx" id="conceptNoteFile" name="conceptNoteFile" type="file" />
+              <span class="note">Optional. Accepted formats: PDF, DOC, DOCX. Maximum file size: 1 MB.</span>
+              <div class="file-preview" id="filePreview"></div>
+            </div>
+          </div>
+        </div>
+        <div class="step-navigation"><button class="nav-btn prev-btn" type="button">Previous</button><span
+            class="step-spacer"></span><button class="nav-btn next-btn" type="button">Save &amp; Next</button></div>
+      </div>
+      <div class="form-step" data-step="7">
+        <div class="section">
+          <h2>Review &amp; Declaration</h2>
+          <div class="review-note">Please review all details before final submission. If something needs correction,
+            click Edit beside that section.</div>
+          <div id="reviewSummary" class="review-grid"></div>
+          <label class="terms-box">
+            <input name="declaration" required="" type="checkbox" />
+            <span>
+              
+              <p>I hereby declare that all information provided in this submission is true, accurate, and complete to the best of my knowledge and belief.</p><p>
+
+I acknowledge and agree that IITB–Honeywell Centre of Excellence (CoE) reserves the sole and absolute right to review, approve, reject, or disqualify any submission at its discretion.</p>
+<p>
+I further confirm that the submitted idea, content, and materials are my original work and do not infringe upon the intellectual property rights of any third party. If, at any stage, the submission is found to be copied, plagiarized, fraudulently obtained, misrepresented, or submitted through any unauthorized, illegal, or unethical means, IITB–Honeywell CoE reserves the right to reject the submission, revoke any awards or recognition granted, and debar the participant(s) from participating in any current or future hackathons, competitions, programs, or events organized by IITB–Honeywell CoE.
+ </p></span>
+          </label>
+        </div>
+        <div class="step-navigation"><button class="nav-btn prev-btn" type="button">Previous</button><button
+            class="clear-draft-btn" id="clearDraftBtn" type="button">Clear Draft</button><span
+            class="step-spacer"></span>
+          <div class="submit-area">
+            <button class="submit-btn" type="submit">Submit Idea</button>
+          </div>
+        </div>
+      </div>
+  </div>
+
+
+  </form>
+  </div>
+  <script>
+
+    const form = document.getElementById("ideaSubmissionForm");
+    const messageBox = document.getElementById("formMessage");
+    const conceptNoteFile = document.getElementById("conceptNoteFile");
+    const numberOfMembers = document.getElementById("numberOfMembers");
+    const member4Section = document.getElementById("member4Section");
+    const steps = Array.from(document.querySelectorAll(".form-step"));
+    const stepItems = Array.from(document.querySelectorAll(".step-item"));
+    let currentStep = 0;
+
+    const DRAFT_KEY = "utkarshIdeaSubmissionDraft";
+    const progressLabel = document.getElementById("progressLabel");
+    const progressPercent = document.getElementById("progressPercent");
+    const progressFill = document.getElementById("progressFill");
+    const draftStatus = document.getElementById("draftStatus");
+    const filePreview = document.getElementById("filePreview");
+
+    // ─── NEW: DYNAMIC DROP-DOWN "OTHER" FIX ────────────────────────────────
+    document.addEventListener("DOMContentLoaded", () => {
+      // 1. Handle Member 4 visibility block based on total members chosen
+      function toggleMember4Section() {
+        if (numberOfMembers.value === "4") {
+            member4Section.classList.remove("hidden");
+          } else {
+            member4Section.classList.add("hidden");
+            // Clear member 4 inputs if toggled off
+            member4Section.querySelectorAll("input, select").forEach(el => el.value = "");
+          }
+      }
+
+      if (numberOfMembers) {
+        numberOfMembers.addEventListener("change", toggleMember4Section);
+        numberOfMembers.addEventListener("input", toggleMember4Section);
+      }
+      // Expose so restoreDraft() / showStep() can re-sync visibility independently
+      window.toggleMember4Section = toggleMember4Section;
+
+      // 2. Handle "Other" selection for ALL dynamic drop-downs cleanly in one place
+      document.querySelectorAll(".dynamic-select").forEach(selectEl => {
+        // Find the custom text container matching this specific select field
+        const parentGroup = selectEl.closest(".form-group");
+        const dependentInput = parentGroup ? parentGroup.querySelector(".other-input-container") : null;
+
+        if (dependentInput) {
+          // Inner helper function to safely process changes
+          const toggleOtherInput = () => {
+            if (selectEl.value === "other" || selectEl.value === "others") {
+              dependentInput.classList.remove("hidden");
+              dependentInput.querySelector("input").setAttribute("required", "required");
+            } else {
+              dependentInput.classList.add("hidden");
+              dependentInput.querySelector("input").removeAttribute("required");
+              dependentInput.querySelector("input").value = ""; // clear text value
+            }
+          };
+
+          // Attach listener event & fire once immediately to parse restored drafts
+          selectEl.addEventListener("change", toggleOtherInput);
+          // Small timeout ensures saved draft values are parsed into selections first
+          setTimeout(toggleOtherInput, 100);
+        }
+      });
+    });
+    // ────────────────────────────────────────────────────────────────────────
+
+    // Add this check at the very top of your form initialization or submit script
+    document.getElementById("ideaForm")?.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      // 1. Get logged-in user data from LocalStorage
+      const sessionUser = JSON.parse(localStorage.getItem("user") || "{}");
+      if (!sessionUser || !sessionUser.id) {
+        alert("Authentication Error: Please log in again as a student.");
+        window.location.href = "login.html";
+        return;
+      }
+
+      // 2. Map existing user to the submission instead of generating an isolated record
+      const teamId = sessionUser.id;
+
+      // 3. Pre-flight check to see if this team already submitted an idea
+      const { data: existingIdea, error: checkError } = await _supabase
+        .from("ideas")
+        .select("id")
+        .eq("team_id", teamId)
+        .maybeSingle();
+
+      if (existingIdea) {
+        alert("Submission Rejected: Your team has already submitted a project idea!");
+        return;
+      }
+
+      const submitButton = e.target.querySelector("button[type='submit']");
+      if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.textContent = "Uploading abstraction metrics...";
+      }
+
+      // Compile layout payload
+      const formData = new FormData(e.target);
+      const dataPayload = {
+        team_id: teamId, // Linked precisely to the team table row
+        title: formData.get("title"),
+        domain: formData.get("domain"),
+        abstract: formData.get("abstract"),
+        innovation: formData.get("innovation"),
+        feasibility: formData.get("feasibility"),
+        sustainability: formData.get("sustainability"),
+        scalability: formData.get("scalability"),
+        timeline: formData.get("timeline"),
+        status: "SUBMITTED"
+      };
+
+      try {
+        const { error: insertError } = await _supabase.from("ideas").insert([dataPayload]);
+        if (insertError) throw insertError;
+
+        alert("Success: Project abstract registered successfully!");
+        window.location.href = "student-dashboard.html";
+      } catch (err) {
+        alert("Submission Failed: " + err.message);
+      } finally {
+        if (submitButton) {
+          submitButton.disabled = false;
+          submitButton.textContent = "Submit Idea";
+        }
+      }
+    });
+
+    function updateProgress() {
+      const totalSteps = steps.length;
+      const percentage = Math.round(((currentStep + 1) / totalSteps) * 100);
+      if (progressLabel) progressLabel.textContent = "Step " + (currentStep + 1) + " of " + totalSteps;
+      if (progressPercent) progressPercent.textContent = percentage + "% Complete";
+      if (progressFill) progressFill.style.width = percentage + "%";
+    }
+
+const supportSelect = document.getElementById("receivedSupport");
+const detailsGroup  = document.getElementById("supportDetailsGroup");
+const supportFields = ["grantAgency", "grantAmount", "grantYear", "grantAgencyDesc"]
+  .map(id => document.getElementById(id));
+
+function syncSupportFields() {
+  const show = supportSelect.value === "Yes";
+  detailsGroup.style.display = show ? "block" : "none";
+  supportFields.forEach(el => { el.required = show; });
+}
+
+supportSelect.addEventListener("change", () => {
+  syncSupportFields();
+  if (supportSelect.value !== "Yes") {
+    supportFields.forEach(el => { el.value = ""; });
+    document.getElementById("hackathonSupport").value = "";
+  }
+});
+    supportSelect.addEventListener("change", () => {
+      const show = supportSelect.value === "Yes";
+      detailsGroup.style.display = show ? "block" : "none";
+
+      const agencyEl = document.getElementById("grantAgency");
+      const amountEl = document.getElementById("grantAmount");
+      const yearEl = document.getElementById("grantYear");
+      const agencyDescEl = document.getElementById("grantAgencyDesc")
+
+      agencyEl.required = show;
+      amountEl.required = show;
+      yearEl.required = show;
+      agencyDescEl.required = show;
+
+      if (!show) {
+        // Clear and null-out hidden field immediately when "No" is chosen
+        agencyEl.value = "";
+        amountEl.value = "";
+        yearEl.value = "";
+        agencyDescEl.value = "";
+        document.getElementById("hackathonSupport").value = "";
+      }
+    });
+
+    // ── Feasibility validator — defined at module scope so both submit and
+    //    validateCurrentStep() can call it ───────────────────────────────────────
+    function validateFeasibility() {
+      const total =
+        (Number(document.getElementById("envPct").value) || 0) +
+        (Number(document.getElementById("humPct").value) || 0) +
+        (Number(document.getElementById("culPct").value) || 0) +
+        (Number(document.getElementById("socialPct").value) || 0) +
+        (Number(document.getElementById("ecoPct").value) || 0);
+
+      const error = document.getElementById("feasibilityError");
+
+      if (total !== 100) {
+        error.style.display = "block";
+        document.getElementById("envPct").focus();
+        return false;
+      }
+
+      error.style.display = "none";
+      return true;
+    }
+
+    document.querySelector("form").addEventListener("submit", function (e) {
+      // ── 1. Feasibility must equal exactly 100 before anything else ────────────
+      if (!validateFeasibility()) {
+        e.preventDefault();
+        document.getElementById("feasibilityError").scrollIntoView({ behavior: "smooth", block: "center" });
+        return;
+      }
+
+      // ── 2. Grant / hackathon support ──────────────────────────────────────────
+      const hidden = document.getElementById("hackathonSupport");
+      const supportSelect = document.getElementById("receivedSupport");
+
+      if (!supportSelect.value || supportSelect.value === "No") {
+        hidden.value = "No";
+        // Do NOT return here — let submission continue
+      } else {
+        const agency = document.getElementById("grantAgency").value.trim();
+        const amount = parseInt(document.getElementById("grantAmount").value, 10);
+        const year = document.getElementById("grantYear").value.trim();
+        const agencyDesc = document.getElementById("grantAgencyDesc").value.trim();
+
+        // Agency must not be empty
+        if (!agency || !agencyDesc) {
+          alert("Please enter the Agency / Organisation / Scheme name and Agency description");
+          e.preventDefault();
+          return;
+        }
+
+        // Amount must be a positive integer strictly greater than 1000
+        if (isNaN(amount) || amount <= 1000) {
+          alert("Amount must be greater than ₹1,000.");
+          e.preventDefault();
+          document.getElementById("grantAmount").focus();
+          return;
+        }
+
+        // Year must be a valid 4-digit year not in the future
+        const currentYear = new Date().getFullYear();
+        if (!/^\d{4}$/.test(year) || parseInt(year, 10) < 0 || parseInt(year, 10) > currentYear) {
+          alert(`Please enter a valid year between 1000 and ${currentYear}.`);
+          e.preventDefault();
+          document.getElementById("grantYear").focus();
+          return;
+        }
+
+        // Store as: YES-{agency}-{amount}-{year}
+        hidden.value = `YES-${agencyDesc}-${agency}-${amount}-${year}`;
+      }
+    });
+
+
+    // ── Set grantYear max to the current year so future years are blocked ────────
+    const grantYearInput = document.getElementById("grantYear");
+    if (grantYearInput) grantYearInput.max = new Date().getFullYear();
+
+    const today = new Date();
+
+    const minDate = '1991-01-01';
+    const maxDate = '2008-12-31';
+
+
+    document.querySelectorAll('input[type="date"]').forEach(input => {
+      input.min = minDate;
+      input.max = maxDate;
+    });
+
+    const email = document.getElementById('leadEmail');
+    const confirmEmail = document.getElementById('leadConfirmEmail');
+
+    function validateEmailMatch() {
+      if (email.value !== confirmEmail.value) {
+        confirmEmail.setCustomValidity('Email addresses do not match');
+      } else {
+        confirmEmail.setCustomValidity('');
+      }
+    }
+
+    email.addEventListener('input', validateEmailMatch);
+    confirmEmail.addEventListener('input', validateEmailMatch);
+
+
+
+
+    const ids = ["envPct", "humPct", "culPct", "socialPct", "ecoPct"];
+
+    function getFeasibilityTotal() {
+      return ids.reduce((sum, id) => {
+        return sum + (Number(document.getElementById(id).value) || 0);
+      }, 0);
+    }
+
+    function updateFeasibility() {
+
+      const env = Number(document.getElementById("envPct").value) || 0;
+      const hum = Number(document.getElementById("humPct").value) || 0;
+      const cul = Number(document.getElementById("culPct").value) || 0;
+      const social = Number(document.getElementById("socialPct").value) || 0;
+      const eco = Number(document.getElementById("ecoPct").value) || 0;
+
+      const total = env + hum + cul + social + eco;
+
+      const display = document.getElementById("totalDisplay");
+      const error = document.getElementById("feasibilityError");
+
+      display.textContent = `Total: ${total}%`;
+      display.style.color = total === 100 ? "#0f6b4a" : "#a82424";
+
+      // Show/hide the inline error message live so users get immediate feedback
+      error.style.display = (total > 0 && total !== 100) ? "block" : "none";
+
+      document.getElementById("feasibility").value =
+        `env-${env},hum-${hum},cul-${cul},social-${social},eco-${eco}`;
+    }
+
+    ids.forEach(id => {
+      document.getElementById(id).addEventListener("input", updateFeasibility);
+    });
+
+    updateFeasibility();
+
+
+
+
+
+    function escapeHtml(value) {
+      return String(value || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function getFormValues() {
+      const values = {};
+      if (!form) return values;
+      new FormData(form).forEach((value, key) => {
+        if (value instanceof File) {
+          values[key] = value.name || "";
+        } else {
+          values[key] = value;
+        }
+      });
+      return values;
+    }
+
+    function makeRows(rows) {
+      return rows.map(([label, value]) => {
+        const safe = escapeHtml(value || "-").replace(/\n/g, "<br>");
+        return `
+      <div class="review-row">
+        <div class="review-label">${escapeHtml(label)}</div>
+        <div class="review-value">${safe}</div>
+      </div>
+    `;
+      }).join("");
+    }
+
+    function makeReviewCard(title, stepIndex, rows, full = false) {
+      return `
+      <div class="review-card ${full ? "full" : ""}">
+        <div class="review-card-header">
+          <h3>${escapeHtml(title)}</h3>
+          <button class="edit-section-btn" type="button" data-edit-step="${stepIndex}">Edit</button>
+        </div>
+        ${makeRows(rows)}
+      </div>
+    `;
+    }
+
+    // ── Helper: read grant support live from the visible form fields ───────────
+    function getHackathonSupportDisplay() {
+      const supportSelect = document.getElementById("receivedSupport");
+      if (!supportSelect || supportSelect.value !== "Yes") return "No";
+
+      const agency = (document.getElementById("grantAgency")?.value || "").trim();
+      const amount = document.getElementById("grantAmount")?.value || "";
+      const year = (document.getElementById("grantYear")?.value || "").trim();
+      const agencyDesc = (document.getElementById("grantAgencyDesc")?.value || "").trim();
+
+      let display = "Yes";
+      if (agencyDesc) display += `\nDescription: ${agencyDesc}`;
+      if (agency) display += `\nAgency: ${agency}`;
+      if (amount) display += `\nAmount: ₹${Number(amount).toLocaleString("en-IN")}`;
+      if (year) display += `\nYear: ${year}`;
+      return display;
+    }
+
+    function renderReviewSummary() {
+      const reviewSummary = document.getElementById("reviewSummary");
+      if (!reviewSummary) return;
+
+      const v = getFormValues();
+      const fileName = conceptNoteFile && conceptNoteFile.files.length > 0 ? conceptNoteFile.files[0].name : "Not uploaded";
+
+      // Read pillar percentages live from the inputs (more reliable than hidden field)
+      const envPct = document.getElementById("envPct")?.value || "0";
+      const humPct = document.getElementById("humPct")?.value || "0";
+      const culPct = document.getElementById("culPct")?.value || "0";
+      const socialPct = document.getElementById("socialPct")?.value || "0";
+      const ecoPct = document.getElementById("ecoPct")?.value || "0";
+      const pillarDisplay =
+        `Environmental: ${envPct}%\nHuman: ${humPct}%\nCultural: ${culPct}%\nSocial: ${socialPct}%\nEconomic: ${ecoPct}%`;
+
+      const member4Rows = Number(v.numberOfMembers) === 4 ? [
+        ["Member 4", `${v.member4FirstName || ""} ${v.member4LastName || ""}`.trim()],
+        ["Member 4 Email", v.member4Email],
+        ["Member 4 Mobile", v.member4Mobile]
+      ] : [];
+
+      reviewSummary.innerHTML =
+
+
+        makeReviewCard("Team Details", 0, [
+          ["Team Name", v.teamName],
+          ["Theme", mapTheme(v.theme)],
+          ["Number of Members", v.numberOfMembers]
+        ]) +
+        makeReviewCard("Team Lead", 1, [
+          ["Name", `${v.leadFirstName || ""} ${v.leadLastName || ""}`.trim()],
+          ["Email", v.leadEmail],
+          ["Mobile", v.leadMobile],
+          ["Qualification", v.leadQualificationLevel],
+          ["Year/Semester", v.leadYearSemester],
+          ["Student ID", v.leadStudentId]
+        ]) +
+        makeReviewCard("Team Members", 2, [
+          ["Member 2", `${v.member2FirstName || ""} ${v.member2LastName || ""}`.trim()],
+          ["Member 2 Email", v.member2Email],
+          ["Member 2 Mobile", v.member2Mobile],
+          ["Member 3", `${v.member3FirstName || ""} ${v.member3LastName || ""}`.trim()],
+          ["Member 3 Email", v.member3Email],
+          ["Member 3 Mobile", v.member3Mobile],
+          ...member4Rows
+        ], true) +
+        makeReviewCard("Institute Details", 3, [
+          ["Full Institution Name", v.leadCollege],
+          ["Complete Institute Address", v.collegeBlock],
+          ["District", v.collegeDistrict],
+          ["State", v.collegeState],
+          ["PIN Code", v.collegePincode]
+        ]) +
+        makeReviewCard("Faculty Mentor", 4, [
+          ["Name", `${v.facultyFirstName || ""} ${v.facultyLastName || ""}`.trim()],
+          ["Designation", v.facultyDesignation],
+          ["Department", v.facultyDepartment],
+          ["Email", v.facultyEmail],
+          ["Mobile", v.facultyMobile]
+        ]) +
+        makeReviewCard("Idea Submission", 5, [
+          ["Briefly describe the problem statement and its severity.", v.motivation],
+          ["How was the problem defined, validated, and quantified across the sustainability pillars?",v.challengeImportance],
+          ["Sustainability pillar allocation", pillarDisplay],
+          ["Who are the major target beneficiaries and key stakeholders, and what are their respective roles?", v.beneficiaries],
+          ["Briefly describe your proposed solution, highlighting its key features.", v.solutionDescription],
+          ["Explain the uniqueness, innovation, and originality of your proposed solution, highlighting how it differs from existing or comparable solutions.",v.innovation],
+          ["Select the Technology Readiness Level (TRL) of your solution.", (v.developmentStage || "").toUpperCase()],
+          ["Briefly explain the methodology, including technical approach, and key activities planned for the effective implementation of your solution.", v.technologyApproach],
+          ["What measurable (quantitative and qualitative indicators) impacts do you expect your solution to create?", v.expectedImpact],
+          ["Briefly introduce your team, highlighting the key skills, expertise, and roles of each member.", v.teamSkills],
+          ["How do you plan to scale and sustain your start-up over time?",v.challenge],
+          ["Have you received any previous grants / incubation support?", getHackathonSupportDisplay()],
+        ], true) +
+        makeReviewCard("Attachment", 1, [
+          ["Supporting Document", fileName]
+        ]);
+
+      reviewSummary.querySelectorAll("[data-edit-step]").forEach((button) => {
+        button.addEventListener("click", () => showStep(Number(button.dataset.editStep)));
+      });
+    }
+
+    function saveDraft() {
+      if (!form) return;
+      const data = {};
+      Array.from(form.elements).forEach((field) => {
+        if (!field.name || field.type === "file" || field.type === "submit" || field.type === "button") return;
+        if (field.type === "checkbox") {
+          data[field.name] = field.checked;
+        } else {
+          data[field.name] = field.value;
+        }
+      });
+      localStorage.setItem(DRAFT_KEY, JSON.stringify(data));
+      if (draftStatus) draftStatus.textContent = "Draft saved automatically.";
+    }
+
+    function restoreDraft() {
+      if (!form) return;
+      const savedDraft = localStorage.getItem(DRAFT_KEY);
+      if (!savedDraft) return;
+      try {
+        const data = JSON.parse(savedDraft);
+        Object.keys(data).forEach((name) => {
+          const field = form.elements[name];
+          if (!field) return;
+          if (field.type === "checkbox") {
+            field.checked = Boolean(data[name]);
+          } else {
+            field.value = data[name];
+          }
+        });
+        if (draftStatus) draftStatus.textContent = "Draft restored from this browser.";
+      } catch (error) {
+        localStorage.removeItem(DRAFT_KEY);
+      }
+    }
+
+    function clearDraft() {
+      localStorage.removeItem(DRAFT_KEY);
+      if (draftStatus) draftStatus.textContent = "Draft cleared.";
+    }
+
+    function updateFilePreview() {
+      if (!filePreview || !conceptNoteFile) return;
+      if (!conceptNoteFile.files.length) {
+        // In edit mode, if a concept note was already uploaded previously
+        // and the user hasn't chosen a replacement, show what's on file
+        // instead of just hiding the preview.
+        if (isEditMode && editingConceptNoteFileName) {
+          filePreview.style.display = "flex";
+          filePreview.innerHTML = `<span><strong>Currently on file:</strong> ${escapeHtml(editingConceptNoteFileName)} (choose a new file to replace it)</span>`;
+        } else {
+        filePreview.style.display = "none";
+        filePreview.innerHTML = "";
+        }
+        return;
+      }
+      const file = conceptNoteFile.files[0];
+      const sizeInKb = Math.round(file.size / 1024);
+      filePreview.style.display = "flex";
+      filePreview.innerHTML = `
+      <span><strong>Selected:</strong> ${escapeHtml(file.name)} (${sizeInKb} KB)</span>
+      <button class="remove-file-btn" id="removeFileBtn" type="button">Remove</button>
+    `;
+      document.getElementById("removeFileBtn").addEventListener("click", () => {
+        conceptNoteFile.value = "";
+        updateFilePreview();
+        saveDraft();
+      });
+    }
+
+    function showStep(index) {
+      currentStep = index;
+      if (typeof toggleMember4Section === "function" && numberOfMembers) toggleMember4Section();
+      steps.forEach((step, stepIndex) => {
+        step.classList.toggle("active", stepIndex === currentStep);
+      });
+      stepItems.forEach((item, stepIndex) => {
+        item.classList.toggle("active", stepIndex === currentStep);
+        item.classList.toggle("completed", stepIndex < currentStep);
+      });
+      updateProgress();
+      if (steps[currentStep] && steps[currentStep].querySelector("#reviewSummary")) {
+        renderReviewSummary();
+      }
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function validateCurrentStep() {
+      const currentStepElement = steps[currentStep];
+      if (!currentStepElement) return false;
+
+      const fields = Array.from(currentStepElement.querySelectorAll("input, select, textarea"));
+
+      for (const field of fields) {
+        if (field.closest(".hidden")) continue;
+        if (!field.checkValidity()) {
+          field.reportValidity();
+          field.focus();
+          return false;
+        }
+      }
+
+      for (const textarea of currentStepElement.querySelectorAll("textarea[data-max-words]")) {
+        const maxWords = Number(textarea.dataset.maxWords);
+        const words = countWords(textarea.value);
+        if (words > maxWords) {
+          showMessage("error", "Please reduce the answer: maximum " + maxWords + " words allowed.");
+          textarea.focus();
+          return false;
+        }
+      }
+
+      // ── Feasibility check: only applies on the step that contains the pillar inputs ──
+      if (currentStepElement.querySelector("#feasibility")) {
+        if (!validateFeasibility()) {
+          showMessage("error", "The five sustainability percentages must add up to exactly 100%.");
+          document.getElementById("feasibilityError").scrollIntoView({ behavior: "smooth", block: "center" });
+          return false;
+        }
+      }
+
+      if (conceptNoteFile && currentStepElement.contains(conceptNoteFile) && conceptNoteFile.files.length > 0) {
+        const maxSize = 1024 * 1024;
+        if (conceptNoteFile.files[0].size > maxSize) {
+          showMessage("error", "Concept note file must be less than 1 MB.");
+          conceptNoteFile.focus();
+          return false;
+        }
+      }
+
+      return true;
+    }
+
+    document.querySelectorAll(".next-btn").forEach((button) => {
+      button.addEventListener("click", () => {
+        if (!validateCurrentStep()) return;
+        showStep(Math.min(currentStep + 1, steps.length - 1));
+      });
+    });
+
+    document.querySelectorAll(".prev-btn").forEach((button) => {
+      button.addEventListener("click", () => {
+        showStep(Math.max(currentStep - 1, 0));
+      });
+    });
+
+    function showMessage(type, text) {
+      if (!messageBox) return;
+      messageBox.className = "alert " + type;
+      messageBox.textContent = text;
+      messageBox.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
+    function countWords(text) {
+      return text.trim().split(/\s+/).filter(Boolean).length;
+    }
+
+    function setupWordCounters() {
+      document.querySelectorAll("textarea[data-max-words]").forEach((textarea) => {
+        const maxWords = Number(textarea.dataset.maxWords);
+        const counter = document.createElement("div");
+        counter.className = "word-count";
+        textarea.insertAdjacentElement("afterend", counter);
+
+        function updateCounter() {
+          const words = countWords(textarea.value);
+          counter.textContent = words + " / " + maxWords + " words";
+          counter.style.color = words > maxWords ? "#a82424" : "#66736f";
+        }
+
+        textarea.addEventListener("input", updateCounter);
+        updateCounter();
+      });
+    }
+
+    stepItems.forEach((item, index) => {
+      item.addEventListener("click", () => {
+        showStep(index);
+      });
+    });
+
+    if (form) {
+      form.addEventListener("input", saveDraft);
+      form.addEventListener("change", saveDraft);
+    }
+    if (conceptNoteFile) conceptNoteFile.addEventListener("change", () => { updateFilePreview(); saveDraft(); });
+
+    const clearDraftBtn = document.getElementById("clearDraftBtn");
+    if (clearDraftBtn) {
+      clearDraftBtn.addEventListener("click", () => {
+        clearDraft();
+        form.reset();
+        updateFilePreview();
+        renderReviewSummary();
+      });
+    }
+
+    // ── Edit-mode support ────────────────────────────────────────────────────
+    // If the logged-in student already has an idea on file, load it and
+    // switch this page into "edit" mode instead of "create" mode. Editing is
+    // only allowed while the idea hasn't been assigned to an evaluator yet
+    // (enforced server-side too — this is just for a good UX up front).
+    let isEditMode = false;
+    let editingConceptNoteFileName = null;
+
+    function applyServerPrefill(values) {
+      if (!form) return;
+      Object.keys(values).forEach((name) => {
+        const field = form.elements[name];
+        if (!field) return;
+        if (field.type === "checkbox") {
+          field.checked = Boolean(values[name]);
+        } else if (values[name] !== null && values[name] !== undefined) {
+          field.value = values[name];
+        }
+      });
+
+      // Re-derive the pillar % inputs from the stored feasibility string,
+      // e.g. "env-50,hum-20,cul-20,social-10,eco-0"
+      if (values.feasibility) {
+        const parts = {};
+        values.feasibility.split(",").forEach((chunk) => {
+          const [key, val] = chunk.split("-");
+          parts[key] = val;
+        });
+        const idMap = { env: "envPct", hum: "humPct", cul: "culPct", social: "socialPct", eco: "ecoPct" };
+        Object.keys(idMap).forEach((key) => {
+          const el = document.getElementById(idMap[key]);
+          if (el && parts[key] !== undefined) el.value = parts[key];
+        });
+        if (typeof updateFeasibility === "function") updateFeasibility();
+      }
+    }
+
+    async function initFormMode() {
+      try {
+        const existing = await loadIdeaForEdit();
+        if (!existing) return; // fresh submission — nothing to prefill
+
+        if (!existing.isEditable) {
+          // Idea has already been picked up for review — lock the form.
+          showMessage("error", "Your idea has already been assigned to an evaluator and can no longer be edited. Redirecting to your dashboard\u2026");
+          if (form) {
+            Array.from(form.elements).forEach((el) => { el.disabled = true; });
+          }
+          setTimeout(() => { window.location.href = "student-dashboard.html"; }, 3000);
+          return;
+        }
+
+        isEditMode = true;
+        editingConceptNoteFileName = existing.conceptNoteFileName;
+        restoreDraft();
+syncSupportFields();
+        applyServerPrefill(existing.values);
+
+        const submitButton = form ? form.querySelector("button[type='submit']") : null;
+        if (submitButton) submitButton.textContent = "Update Idea";
+        if (draftStatus) {
+          draftStatus.textContent = existing.ideaCode
+            ? `Editing your existing submission (${existing.ideaCode}).`
+            : "Editing your existing submission.";
+        }
+      } catch (error) {
+        console.error("Could not check for an existing idea:", error);
+      } finally {
+        // A local browser draft (if present) still wins over server data —
+        // it represents in-progress edits that haven't been saved yet.
+    restoreDraft();
+    if (typeof toggleMember4Section === "function") toggleMember4Section();
+    setupWordCounters();
+    updateFilePreview();
+    showStep(0);
+      }
+    }
+
+    if (document.readyState === "loading") {
+      // api_client.js is loaded with `defer`, so it only becomes available
+      // once the document has finished parsing. This inline script itself
+      // is NOT deferred (it runs immediately as the parser reaches it), so
+      // calling initFormMode() here directly would race ahead of
+      // api_client.js and throw "loadIdeaForEdit is not defined". Waiting
+      // for DOMContentLoaded guarantees all deferred scripts have run.
+      document.addEventListener("DOMContentLoaded", initFormMode);
+    } else {
+      // Document already parsed (e.g. script injected late) — safe to call now.
+    initFormMode();
+    }
+
+    if (form) {
+
+function validateAllSteps() {
+  for (let i = 0; i < steps.length; i++) {
+    const fields = steps[i].querySelectorAll("input, select, textarea");
+    for (const field of fields) {
+      if (field.closest(".hidden")) continue;      // same skip rule you already use
+      if (!field.checkValidity()) {
+        showStep(i);                                // use your step-switching function's real name
+        requestAnimationFrame(() => {               // wait until the step is visible
+          field.reportValidity();
+          field.focus();
+        });
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
+      // Find the form submit listener in your idea-submission.html file:
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        if (conceptNoteFile && conceptNoteFile.files.length > 0) {
+          const file = conceptNoteFile.files[0];
+          if (file.size > 1024 * 1024) {
+            showMessage("error", "Concept note file must be less than 1 MB.");
+            conceptNoteFile.focus();
+            return;
+          }
+        }
+
+        const formData = new FormData(form);
+        const data = {};
+
+        // ── CRITICAL FIX ───────────────────────────────────────────────────────
+        // Helper to turn empty input values/strings into standard SQL-friendly clean nulls
+        function cleanValue(val) {
+          if (val === undefined || val === null || String(val).trim() === "") {
+            return null;
+          }
+          return val;
+        }
+
+        // Read each item out of the HTML form fields
+        formData.forEach((value, key) => {
+          // Skip UI-only grant fields (not meant for DB submission)
+          if (key === "hackathonSupport") return; // legacy UI-only field; real grant fields are submitted directly
+          // Skip custom* scratch inputs — the "Other" resolver below copies their
+          // value into the correct select key (e.g. leadYearSemester, member2Degree).
+          // Sending them separately would create orphan keys the DB has no column for.
+          if (key.startsWith("custom") || key.startsWith("member2Custom") ||
+            key.startsWith("member3Custom") || key.startsWith("member4Custom")) return;
+
+          if (value instanceof File) {
+            // File is uploaded separately as multipart/form-data after the
+            // idea record is created (see the upload step below) — it is
+            // NOT sent as part of this JSON payload.
+          } else {
+            // Wrap all incoming values so empty fields submit as null instead of "" or undefined
+            data[key] = cleanValue(value);
+          }
+        });
+
+        // ── "OTHER" RESOLVER ───────────────────────────────────────────────────
+        // For every dynamic-select where the user chose "other"/"others",
+        // replace the select's key value with whatever they typed in the
+        // linked custom text box — so the DB receives the real text, not "other".
+        form.querySelectorAll("select.dynamic-select").forEach(selectEl => {
+          if (selectEl.value !== "other" && selectEl.value !== "others") return;
+
+          const parentGroup = selectEl.closest(".form-group");
+          const customInput = parentGroup && parentGroup.querySelector(".other-input-container input");
+          if (!customInput) return;
+
+          const customText = cleanValue(customInput.value);
+          if (customText) {
+            // Overwrite the select key with the typed custom value
+            data[selectEl.name] = customText;
+          }
+        });
+        // ───────────────────────────────────────────────────────────────────────
+
+        const submitButton = form.querySelector("button[type='submit']");
+        if (submitButton) {
+          submitButton.disabled = true;
+          submitButton.textContent = "Submitting...";
+        }
+
+        try {
+          const result = isEditMode ? await updateIdeaForm(data) : await submitIdeaForm(data);
+
+          const ideaCode = result?.data?.idea_code || result?.data?.ideaCode || result?.data?.registrationNumber || result?.registrationNumber || "";
+          form.reset();
+          clearDraft();
+          showMessage("success", (isEditMode ? "Idea updated successfully!" : "Idea submitted successfully!") + (ideaCode ? " Your idea code: " + ideaCode : ""));
+          setTimeout(() => {
+            window.location.href = "student-dashboard.html";
+          }, 2500);
+        } catch (error) {
+          showMessage("error", error.message || "Submission failed. Please try again.");
+          if (submitButton) {
+            submitButton.disabled = false;
+            submitButton.textContent = isEditMode ? "Update Idea" : "Submit Idea";
+          }
+        }
+      });
+    }
+  </script>
+</body>
+
+</html>
